@@ -1,5 +1,3 @@
-// src/pages/admin/QuotationRequestManagement.jsx
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getQuotationRequests } from '../../services/quotationRequestService';

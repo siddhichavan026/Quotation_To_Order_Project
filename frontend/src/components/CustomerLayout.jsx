@@ -1,6 +1,3 @@
-// src/components/CustomerLayout.jsx
-// Shared shell for every Customer screen: top Navbar + a row of
-// section tabs + the page content underneath (via <Outlet />).
 
 import { NavLink, Outlet } from 'react-router-dom';
 import Navbar from './Navbar';

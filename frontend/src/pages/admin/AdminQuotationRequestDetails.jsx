@@ -1,7 +1,3 @@
-// src/pages/admin/AdminQuotationRequestDetails.jsx
-// Shows the requested products/quantities. If the request is still
-// PENDING, offers a link to create and send a quotation for it.
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getQuotationRequestById } from '../../services/quotationRequestService';

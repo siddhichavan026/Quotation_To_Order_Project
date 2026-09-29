@@ -1,8 +1,3 @@
-// src/components/StatusBadge.jsx
-// One shared component for every status pill in the app (quotation
-// request, quotation, order, and payment statuses). Uses the badge
-// colors from the locked design system.
-
 const STATUS_STYLES = {
   // Quotation request
   PENDING: 'badge-neutral',

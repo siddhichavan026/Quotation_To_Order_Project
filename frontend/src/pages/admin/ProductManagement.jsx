@@ -1,8 +1,3 @@
-// src/pages/admin/ProductManagement.jsx
-// Single-page CRUD: a form at the top (Add mode by default, switches
-// to Edit mode when "Edit" is clicked on a row) and the product table
-// below it.
-
 import { useState, useEffect } from 'react';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '../../services/productService';
 

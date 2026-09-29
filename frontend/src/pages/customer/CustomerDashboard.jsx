@@ -1,11 +1,3 @@
-// src/pages/customer/CustomerDashboard.jsx
-// Landing page after Customer login. Pulls a lightweight summary from
-// the three list endpoints we already have (no new backend work) and
-// highlights quotations that need the customer's attention.
-//
-// Rendered inside <CustomerLayout>, so it does NOT include its own
-// Navbar/page wrapper - just the page's own content.
-
 import { useState, useEffect } from 'react';
 import { getMyQuotationRequests } from '../../services/quotationRequestService';
 import { getMyQuotations } from '../../services/quotationService';

@@ -1,8 +1,3 @@
-// src/pages/admin/PaymentManagement.jsx
-// Lists every payment record with its method and status. Admin can
-// manually confirm an UNPAID payment (there is no payment gateway, so
-// this is the only way a payment becomes FULLY_PAID).
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getPayments, confirmPayment } from '../../services/paymentService';

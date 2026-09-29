@@ -1,10 +1,3 @@
-// src/pages/customer/CreateQuotationRequest.jsx
-// Lets the customer pick one or more IN-STOCK products with a
-// quantity each, and submit them as a single quotation request.
-// Out-of-stock products are excluded from the dropdown entirely, so
-// they cannot be selected in the first place (backend still
-// re-validates this too).
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProducts } from '../../services/productService';
@@ -12,10 +5,7 @@ import { createQuotationRequest } from '../../services/quotationRequestService';
 
 let nextRowId = 1;
 
-// Products a given row may choose from: every in-stock product EXCEPT the ones
-// already picked in OTHER rows. The row's own current choice stays in its list
-// (so it still displays), and changing/removing a row frees that product again.
-// This only affects this form - it never touches the catalog or stock.
+
 function getOptionsForRow(availableProducts, rows, rowId) {
   const pickedElsewhere = rows
     .filter((r) => r.id !== rowId && r.product_id)

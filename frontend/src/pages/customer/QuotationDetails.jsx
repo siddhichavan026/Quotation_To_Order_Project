@@ -1,11 +1,3 @@
-// src/pages/customer/QuotationDetails.jsx
-// Shows full quotation details (items, prices, tax, total, validity)
-// and lets the customer Accept or Reject it - only while it's still
-// in SENT status and not expired. The backend is the final authority
-// on this (auto-expires overdue quotations and rejects invalid
-// transitions), so we always re-fetch after an action and show
-// whatever the backend says.
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getQuotationById, respondToQuotation } from '../../services/quotationService';

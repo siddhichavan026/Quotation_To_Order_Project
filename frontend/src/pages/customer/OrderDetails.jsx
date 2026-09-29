@@ -1,9 +1,3 @@
-// src/pages/customer/OrderDetails.jsx
-// Shows order items (with the prices locked in at quotation time),
-// order status, and payment information. This is read-only for the
-// customer - payment is confirmed manually by Admin, and there is no
-// online payment gateway.
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getOrderById } from '../../services/orderService';

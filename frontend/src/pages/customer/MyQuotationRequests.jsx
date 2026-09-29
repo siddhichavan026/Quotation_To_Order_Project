@@ -1,5 +1,3 @@
-// src/pages/customer/MyQuotationRequests.jsx
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getMyQuotationRequests } from '../../services/quotationRequestService';

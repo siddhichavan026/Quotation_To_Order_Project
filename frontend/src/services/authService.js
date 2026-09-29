@@ -1,8 +1,3 @@
-// src/services/authService.js
-// Wraps the two auth endpoints from the backend (Step 1).
-// Controllers/business-screen services (products, quotations, etc.)
-// will follow this exact same pattern in later steps.
-
 import api from './api';
 
 export async function loginRequest(email, password) {

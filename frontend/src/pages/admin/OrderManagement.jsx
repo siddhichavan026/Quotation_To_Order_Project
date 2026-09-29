@@ -1,5 +1,3 @@
-// src/pages/admin/OrderManagement.jsx
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getOrders } from '../../services/orderService';

@@ -1,7 +1,3 @@
-// src/pages/Unauthorized.jsx
-// Shown when a logged-in user tries to open a route that belongs to
-// the other role (e.g. a Customer visiting an /admin/* URL directly).
-
 import { Link } from 'react-router-dom';
 
 export default function Unauthorized() {

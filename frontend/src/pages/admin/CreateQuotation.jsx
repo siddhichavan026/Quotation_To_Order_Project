@@ -1,10 +1,3 @@
-// src/pages/admin/CreateQuotation.jsx
-// Admin picks a valid_until date for a PENDING request and reviews a
-// preview (current product price/tax applied to each requested item)
-// before sending. The backend re-reads current price/tax at the exact
-// moment it creates the quotation, so this preview matches what will
-// be saved as long as prices haven't changed in between.
-
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getQuotationRequestById } from '../../services/quotationRequestService';

@@ -1,7 +1,3 @@
-// src/components/Navbar.jsx
-// Shared top navbar used by both the Admin and Customer areas.
-// Shows the logged-in user's name, role badge, and a logout button.
-
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 

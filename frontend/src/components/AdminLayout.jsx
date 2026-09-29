@@ -1,7 +1,3 @@
-// src/components/AdminLayout.jsx
-// Shared shell for every Admin screen: top Navbar + section tabs +
-// page content (via <Outlet />) - same pattern as CustomerLayout.
-
 import { NavLink, Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 

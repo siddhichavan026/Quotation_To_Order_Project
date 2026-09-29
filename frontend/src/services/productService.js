@@ -1,7 +1,3 @@
-// src/services/productService.js
-// Wraps GET /api/products. Admin-only write operations (create/update/
-// delete) will be added here when we build the Admin side.
-
 import api from './api';
 
 export async function getProducts() {

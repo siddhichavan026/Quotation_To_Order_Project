@@ -1,7 +1,3 @@
-// src/services/paymentService.js
-// Wraps /api/payments. getPayments/getPaymentByOrder are readable by
-// both roles (backend scopes results), but confirmPayment is Admin-only.
-
 import api from './api';
 
 export async function getPayments() {

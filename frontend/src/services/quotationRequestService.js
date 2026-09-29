@@ -1,14 +1,6 @@
-// src/services/quotationRequestService.js
-// Wraps the /api/quotation-requests endpoints.
-// More functions (create, getById) will be added here when we build
-// the "Create Quotation Request" and "My Quotation Requests" screens.
-
 import api from './api';
 
-// GET /api/quotation-requests returns the customer's own requests for a
-// CUSTOMER token, or ALL requests for an ADMIN token (decided by the
-// backend based on the JWT role) - so the same call works for both
-// "My Quotation Requests" (Customer) and "Quotation Request Management" (Admin).
+
 export async function getMyQuotationRequests() {
   const response = await api.get('/quotation-requests');
   return response.data.requests;

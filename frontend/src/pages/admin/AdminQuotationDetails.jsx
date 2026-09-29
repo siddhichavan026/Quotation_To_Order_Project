@@ -1,9 +1,3 @@
-// src/pages/admin/AdminQuotationDetails.jsx
-// Shows a quotation's items, total, and status. Only an ACCEPTED
-// quotation can be converted into an order. The backend performs the
-// real stock check at conversion time, so if stock is insufficient the
-// backend's error (with the list of short products) is shown here.
-
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getQuotationById } from '../../services/quotationService';

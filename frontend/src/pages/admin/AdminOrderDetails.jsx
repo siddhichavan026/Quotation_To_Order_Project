@@ -1,10 +1,3 @@
-// src/pages/admin/AdminOrderDetails.jsx
-// Shows order items, status and payment info, and lets Admin:
-//   - confirm the payment manually (UNPAID -> FULLY_PAID)
-//   - move the order CREATED -> PROCESSING -> COMPLETED, or cancel it
-// The "Mark as Completed" button is disabled until payment is
-// FULLY_PAID (the backend enforces this rule too).
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getOrderById, updateOrderStatus } from '../../services/orderService';

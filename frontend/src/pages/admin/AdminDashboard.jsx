@@ -1,8 +1,3 @@
-// src/pages/admin/AdminDashboard.jsx
-// Landing page after Admin login. Pulls a summary from the existing
-// list endpoints (products, quotation-requests, quotations, orders,
-// payments) - no dedicated "summary" endpoint needed.
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts } from '../../services/productService';

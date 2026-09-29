@@ -1,9 +1,3 @@
-// src/pages/customer/ProductList.jsx
-// Read-only product catalog. Shows price, tax rate, and stock
-// availability. Out-of-stock products are clearly marked here; the
-// actual restriction on requesting them is enforced on the
-// "Create Quotation Request" screen and, ultimately, by the backend.
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts } from '../../services/productService';
