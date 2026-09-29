@@ -1,12 +1,5 @@
-// controllers/productController.js
-// Handles product catalog operations.
-// Table used: products (product_id, name, description, price, tax_rate, stock_quantity, created_at)
-
 const pool = require('../config/db');
 
-// Validation helpers: reject non-numeric text, blanks, booleans and negatives
-// (a plain "value < 0" check lets things like "abc" through, because
-// comparing NaN with a number is always false).
 function isNonNegativeNumber(value) {
   if (value === null || value === '' || typeof value === 'boolean') return false;
   const n = Number(value);
@@ -17,8 +10,7 @@ function isNonNegativeInteger(value) {
   return isNonNegativeNumber(value) && Number.isInteger(Number(value));
 }
 
-// GET /api/products
-// Any logged-in user (Customer or Admin) can view products.
+
 async function getAllProducts(req, res) {
   try {
     const [products] = await pool.query('SELECT * FROM products ORDER BY product_id DESC');
@@ -29,7 +21,6 @@ async function getAllProducts(req, res) {
   }
 }
 
-// POST /api/products (ADMIN only)
 async function createProduct(req, res) {
   try {
     const { name, description, price, tax_rate, stock_quantity } = req.body;
@@ -73,7 +64,6 @@ async function createProduct(req, res) {
   }
 }
 
-// PUT /api/products/:id (ADMIN only)
 async function updateProduct(req, res) {
   try {
     const { id } = req.params;
@@ -129,7 +119,7 @@ async function deleteProduct(req, res) {
   } catch (err) {
     console.error('deleteProduct error:', err);
 
-    // This product is already referenced by a request/quotation/order (ON DELETE RESTRICT)
+    
     if (err.code === 'ER_ROW_IS_REFERENCED_2' || err.code === 'ER_ROW_IS_REFERENCED') {
       return res.status(409).json({
         message: 'This product cannot be deleted because it is already used in a quotation request, quotation, or order.'

@@ -1,16 +1,10 @@
-// controllers/quotationRequestController.js
-// Handles customer quotation requests (before any pricing exists).
-// Tables used: quotation_requests, quotation_request_items, products
-
 const pool = require('../config/db');
 
-// POST /api/quotation-requests (CUSTOMER only)
-// Body: { items: [ { product_id, requested_quantity }, ... ] }
 async function createRequest(req, res) {
   const customer_id = req.user.user_id;
   const { items } = req.body;
 
-  // 1. Basic validation (no DB needed yet)
+ 
   if (!Array.isArray(items) || items.length === 0) {
     return res.status(400).json({ message: 'items must be a non-empty array of { product_id, requested_quantity }.' });
   }
@@ -31,7 +25,7 @@ async function createRequest(req, res) {
   try {
     await connection.beginTransaction();
 
-    // 2. Validate every product exists and is in stock (out-of-stock products cannot be requested)
+    
     for (const item of items) {
       const [productRows] = await connection.query(
         'SELECT product_id, stock_quantity FROM products WHERE product_id = ?',
@@ -48,14 +42,14 @@ async function createRequest(req, res) {
       }
     }
 
-    // 3. Create the request (stock is NOT reduced at this stage)
+   
     const [requestResult] = await connection.query(
       'INSERT INTO quotation_requests (customer_id, status) VALUES (?, ?)',
       [customer_id, 'PENDING']
     );
     const request_id = requestResult.insertId;
 
-    // 4. Insert each requested line item
+    
     for (const item of items) {
       await connection.query(
         'INSERT INTO quotation_request_items (request_id, product_id, requested_quantity) VALUES (?, ?, ?)',
@@ -75,7 +69,6 @@ async function createRequest(req, res) {
   }
 }
 
-// Helper: attach line items to a list of requests
 async function attachItems(requests) {
   for (const request of requests) {
     const [items] = await pool.query(
@@ -90,8 +83,7 @@ async function attachItems(requests) {
   return requests;
 }
 
-// GET /api/quotation-requests
-// CUSTOMERsees only their own requests, ADMIN sees all requests.
+
 async function getRequests(req, res) {
   try {
     let requests;
@@ -113,7 +105,6 @@ async function getRequests(req, res) {
   }
 }
 
-// GET /api/quotation-requests/:id
 async function getRequestById(req, res) {
   try {
     const { id } = req.params;
@@ -125,7 +116,6 @@ async function getRequestById(req, res) {
 
     const request = requestRows[0];
 
-    // A customer can only view their own request
     if (req.user.role === 'CUSTOMER' && request.customer_id !== req.user.user_id) {
       return res.status(403).json({ message: 'You are not allowed to view this request.' });
     }

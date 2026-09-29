@@ -417,7 +417,7 @@ async function updateOrderStatus(req, res) {
     }
   }
 
-    // 3. Same status is not allowed
+    
     if (status === order.status) {
       await connection.rollback();
 
@@ -427,7 +427,7 @@ async function updateOrderStatus(req, res) {
       });
     }
 
-    // 4. CREATED cannot be set again
+   
     if (status === 'CREATED') {
       await connection.rollback();
 
@@ -437,7 +437,6 @@ async function updateOrderStatus(req, res) {
       });
     }
 
-    // 5. COMPLETED requires FULLY_PAID
     if (status === 'COMPLETED') {
 
       const [paymentRows] = await connection.query(
@@ -460,14 +459,7 @@ async function updateOrderStatus(req, res) {
       }
     }
 
-    // 6. NEW CANCELLATION LOGIC
-    //
-    // When an active order is cancelled:
-    // - Get all order items.
-    // - Add each item's quantity back to its product stock.
-    // - Then mark the order as CANCELLED.
-    //
-    // Everything happens in the same transaction.
+   
     if (status === 'CANCELLED') {
 
       const [orderItems] = await connection.query(

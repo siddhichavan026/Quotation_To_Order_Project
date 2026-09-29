@@ -1,6 +1,3 @@
-// controllers/quotationController.js
-// Handles quotation creation/sending, viewing, and customer accept/reject.
-// Tables used: quotations, quotation_items, quotation_requests, products
 
 const pool = require('../config/db');
 
@@ -15,15 +12,11 @@ function toDateString(value) {
   return String(value).slice(0, 10);
 }
 
-// Has this quotation passed its valid_until date?
-// A quotation is still valid THROUGH its valid_until day, and is treated as
-// expired from the next day. Comparing "YYYY-MM-DD" strings avoids timezone bugs.
+
 function isPastValidity(quotation) {
   return toDateString(quotation.valid_until) < toDateString(new Date());
 }
 
-// POST /api/quotations (ADMIN only)
-// Body: { request_id, valid_until }  (valid_until format: "YYYY-MM-DD")
 async function createQuotation(req, res) {
   const admin_id = req.user.user_id;
   const { request_id, valid_until } = req.body;
@@ -36,7 +29,6 @@ async function createQuotation(req, res) {
   try {
     await connection.beginTransaction();
 
-    // Lock the request row so two admins can't quote it at the same time
     const [requestRows] = await connection.query(
       'SELECT * FROM quotation_requests WHERE request_id = ? FOR UPDATE',
       [request_id]
@@ -61,8 +53,7 @@ async function createQuotation(req, res) {
       return res.status(400).json({ message: 'This request has no items.' });
     }
 
-    // Build quotation items using the CURRENT product price/tax_rate.
-    // These values get locked in and copied into quotation_items.
+  
     let total_amount = 0;
     const quotationItemsData = [];
 
@@ -86,7 +77,6 @@ async function createQuotation(req, res) {
       quotationItemsData.push({ product_id: item.product_id, quantity, unit_price, tax_rate, subtotal });
     }
 
-    // Create the quotation (status SENT immediately - no draft state)
     const [quotationResult] = await connection.query(
       `INSERT INTO quotations (request_id, customer_id, admin_id, status, valid_until, total_amount, sent_at)
        VALUES (?, ?, ?, 'SENT', ?, ?, NOW())`,
@@ -102,7 +92,7 @@ async function createQuotation(req, res) {
       );
     }
 
-    // Mark the originating request as CONVERTED (one quotation per request)
+    
     await connection.query('UPDATE quotation_requests SET status = ? WHERE request_id = ?', ['CONVERTED', request_id]);
 
     await connection.commit();
@@ -136,9 +126,6 @@ async function attachItems(quotations) {
   return quotations;
 }
 
-// GET /api/quotations
-// CUSTOMER sees only their own, ADMIN sees all.
-// Also lazily marks any SENT-but-overdue quotation as EXPIRED.
 async function getQuotations(req, res) {
   try {
     let quotations;
@@ -195,8 +182,6 @@ async function getQuotationById(req, res) {
   }
 }
 
-// PATCH /api/quotations/:id/respond (CUSTOMER only)
-// Body: { decision: "ACCEPT" | "REJECT" }
 async function respondToQuotation(req, res) {
   const { id } = req.params;
   const { decision } = req.body;
@@ -222,7 +207,6 @@ async function respondToQuotation(req, res) {
       return res.status(403).json({ message: 'You are not allowed to respond to this quotation.' });
     }
 
-    // Auto-expire check: a customer cannot accept/reject an expired quotation
     if (quotation.status === 'SENT' && isPastValidity(quotation)) {
       await connection.query('UPDATE quotations SET status = ? WHERE quotation_id = ?', ['EXPIRED', id]);
       await connection.commit();

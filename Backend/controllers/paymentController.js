@@ -1,16 +1,6 @@
-// controllers/paymentController.js
-// Handles manual payment confirmation by Admin, and viewing payment records.
-// Table used: payments (payment_id, order_id, amount_paid, payment_method, payment_status, payment_date, recorded_by)
-//
-// Important business rule: there is no payment gateway. Selecting UPI or
-// BANK_TRANSFER does NOT automatically mark a payment as paid - the payment
-// record is created as UNPAID when the order is created (see orderController),
-// and only an Admin manually confirming it moves it to FULLY_PAID.
-
 const pool = require('../config/db');
 
-// PATCH /api/payments/:orderId/confirm (ADMIN only)
-// Marks the payment for this order as FULLY_PAID.
+
 async function confirmPayment(req, res) {
   const { orderId } = req.params;
   const admin_id = req.user.user_id;

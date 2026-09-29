@@ -1,8 +1,3 @@
-// config/db.js
-// Creates a MySQL connection pool using mysql2 and exposes it for use
-// in controllers. A pool is used instead of a single connection so that
-// multiple requests can be handled at the same time.
-
 require('dotenv').config();
 const mysql = require('mysql2/promise');
 
@@ -15,14 +10,9 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  // Return DATE columns (e.g. quotations.valid_until) as plain "YYYY-MM-DD"
-  // strings instead of JS Date objects. Otherwise the JSON output is shifted
-  // by the server timezone (e.g. "2026-10-04T18:30:00.000Z").
   dateStrings: ['DATE']
 });
 
-// Quick check so we know immediately if the database connection is wrong,
-// instead of finding out only when the first API request comes in.
 pool.getConnection()
   .then((connection) => {
     console.log('Connected to MySQL database successfully.');
